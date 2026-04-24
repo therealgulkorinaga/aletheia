@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aletheia — AI Governance Platform
+
+A governance platform for AI workflows in regulated enterprises. Turn board authority into executable AI governance.
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router) + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Database**: Supabase (PostgreSQL)
+- **Auth**: Supabase Auth
 
 ## Getting Started
 
-First, run the development server:
+### 1. Supabase Setup
+
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Go to SQL Editor and run the contents of `supabase-setup.sql`
+3. Go to Authentication → Email → Enable "Email provider"
+4. Create 4 demo users manually in Authentication → Users:
+   - operator@demo.com (password: password123)
+   - approver@demo.com (password: password123)
+   - compliance@demo.com (password: password123)
+   - admin@demo.com (password: password123)
+5. After creating auth users, go to SQL Editor and insert user records:
+
+```sql
+-- Replace UUIDs with actual auth.users IDs from the Authentication panel
+INSERT INTO users (id, email, name, role, department)
+VALUES
+  ('YOUR-OPERATOR-UUID', 'operator@demo.com', 'Sarah Chen', 'OPERATOR', 'Operations'),
+  ('YOUR-APPROVER-UUID', 'approver@demo.com', 'Michael Roberts', 'APPROVER', 'Legal'),
+  ('YOUR-COMPLIANCE-UUID', 'compliance@demo.com', 'Emily Watson', 'COMPLIANCE', 'Compliance'),
+  ('YOUR-ADMIN-UUID', 'admin@demo.com', 'James Anderson', 'ADMIN', 'Administration');
+```
+
+6. Copy your project URL and anon key from Settings → API
+
+### 2. Environment Variables
+
+Update `.env.local` with your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo Users
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Login with any of these accounts (password: `password123`):
 
-## Learn More
+- **operator@demo.com** — Operations role, can create workflows
+- **approver@demo.com** — Approver role, reviews workflow decisions
+- **compliance@demo.com** — Compliance role, read-only workflow access, ledger, reports
+- **admin@demo.com** — Administrator role, full system access including policies
 
-To learn more about Next.js, take a look at the following resources:
+## Features Implemented (Phase 1)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ✅ Landing page with hero and three pillars
+- ✅ Authentication with Supabase
+- ✅ Role-based sidebar navigation
+- ✅ Top bar with user menu
+- ✅ Dashboard with metric cards (stubbed data)
+- ✅ Professional design with Crimson Pro + IBM Plex Sans + JetBrains Mono
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design Principles
 
-## Deploy on Vercel
+**Typography:**
+- Headings: Crimson Pro (serif) — legal authority
+- Body: IBM Plex Sans — governmental trust
+- Code/Data: JetBrains Mono — technical precision
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Color Palette:**
+- Deep slate base
+- Muted blue-gray primary
+- Amber accents for warnings
+- High information density
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Target Audience:**
+General Counsels and Chief Risk Officers of banks and regulated enterprises.
+
+## Next Steps
+
+Phase 2 will add:
+- Policy Manager (Admin role)
+- RFP Workflow (Operator role)
+- Approval Inbox (Approver role)
+- Evidence sealing and ledger
+- PDF evidence pack generation
+
+---
+
+**Aletheia — Confidential**
